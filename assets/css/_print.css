@@ -1,0 +1,118 @@
+*
+{
+  box-sizing : border-box;
+  margin     : 0;
+  padding    : 0;
+}
+
+.bg-gray {
+  background-color: #dee2e6 !important;
+}
+
+.w-50px {
+  width: 50px!important;
+}
+
+/* TERMOS */
+
+.header__print {
+  height: 154px;
+  background-color: #fff;
+}
+
+.footer__print {
+  height: 50px;
+  background-color: #fff;
+}
+
+.header__print--space, .footer__print--space {
+  height: 0;
+  display: none;
+}
+
+.header__print h5, .header__print h6 {
+  line-height: 1.65rem;
+}
+
+.ckeditor-print h2 {
+  padding-top: 1.5rem;
+  padding-bottom: .5rem;
+}
+
+.ckeditor-print h3 {
+  padding-top: .5rem;
+  padding-bottom: 1rem;
+}
+
+.ckeditor-print table {
+  margin-bottom: 2rem !important;
+}
+
+ul, ol, p, .page-break__inside--avoid {
+  page-break-inside: avoid;
+}
+
+@media print {
+
+  a[href*='//']:after { 
+    content: none !important;
+  }
+
+  img[src*='//']:after { 
+    content: none !important;
+  }
+
+  @page {
+    size: A4;
+    margin: 0 0.75cm 1.25cm;
+  }
+
+  .page-header {
+    margin-top: 1.5cm;
+  }
+
+  .page-break__after {
+    page-break-after: always;
+  }
+
+  .page-break__before {
+    page-break-before: always;
+  }
+
+  /* TERMOS */
+  
+  .header__print {
+    position: fixed;
+    top: 0;
+    width: calc(100% - 90px);
+    z-index: 9999;
+  }
+
+  .header__print img, .header__print h5:first-of-type {
+    margin-top: 30px;
+  }
+
+  .header__print h5, .header__print h6 {
+    margin-left: -90px;
+  }
+
+  .content__print {
+    page-break-before: always;
+  }
+
+  .footer__print {
+    position: fixed;
+    bottom: 0;
+    width: calc(100% - 90px);
+    z-index: 9999;
+  }
+
+  .header__print--space, .footer__print--space {
+    height: 154px;
+    display: block;
+  }
+
+  .footer__print--space {
+    height: 50px;
+  }
+}

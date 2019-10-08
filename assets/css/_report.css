@@ -1,0 +1,6 @@
+.table-report th, .table-report td {
+  white-space:nowrap;
+  padding: 8px;
+  vertical-align: middle;
+  text-align: left;
+}
