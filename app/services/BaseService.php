@@ -85,37 +85,13 @@ class BaseService {
 
 				return new UserBuilder();
 
-			case 'paciente':
+			case 'comentarios':
 
-				return new PacienteBuilder();
+				return new ComentarioBuilder();
 
-			case 'solicitacoes':
+			case 'main':
 
-				return new SolicitacaoBuilder();
-
-			case 'produtos':
-
-				return new ProdutoBuilder();
-
-			case 'unidades':
-
-				return new UnidadeBuilder();
-
-			case 'pendentes':
-
-				return new PendenteBuilder();
-
-			case 'aguardando':
-
-				return new AguardandoBuilder();
-
-			case 'aprovados':
-
-				return new AprovadoBuilder();
-
-			case 'vigilancia_epidemiologica':
-
-				return new VigilanciaEpidemiologicaBuilder();
+				return new MainBuilder();
 
 			default:
 

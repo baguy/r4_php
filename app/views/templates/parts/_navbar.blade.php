@@ -10,13 +10,13 @@
     <li class="nav-item d-none d-sm-inline-block">
       <a href="{{ url('/') }}" class="nav-link">{{ trans('application.lbl.home') }}</a>
     </li>
-    
+
   </ul>
 
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
 
-    @if(Auth::user()->hasRole('SUPER'))
+    {{-- @if(Auth::user()->hasRole('ADMIN')) --}}
 
       <!-- Messages Dropdown Menu -->
       @include('templates/parts/_navbar__messages-menu')
@@ -24,7 +24,7 @@
       <!-- Notifications Dropdown Menu -->
       @include('templates/parts/_navbar__notifications-menu')
 
-    @endif
+    {{-- @endif --}}
 
     <li class="nav-item">
       <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">

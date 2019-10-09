@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'exame_novo',
+			'database'  => 'r4_php_db',
 			'username'  => 'root',
 			'password'  => '',
 			'charset'   => 'utf8',

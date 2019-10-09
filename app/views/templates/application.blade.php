@@ -7,7 +7,7 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ trans('application.config.name') }}{{ trans('application.config.nickname') }} - @yield('PAGE_TITLE')</title>
+    <title>{{ trans('application.config.name') }} @yield('PAGE_TITLE')</title>
 
     <!-- Font Awesome 5 -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/all.min.css') }}">

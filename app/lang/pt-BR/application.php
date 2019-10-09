@@ -8,13 +8,13 @@ return [
   |--------------------------------------------------------------------------
   */
 
-  'config.name'        => 'Exame',
-  'config.nickname'    => 'Lab',
-  'config.company'     => 'Prefeitura Municipal da Estância Balneária de Caraguatatuba',
-  'config.department'  => 'Secretaria de Tecnologia da Informação',
-  'config.pmc'         => 'PMC',
+  'config.name'        => 'Solutions',
+  'config.nickname'    => 'Novo Produto',
+  'config.company'     => 'Solutions',
+  'config.department'  => 'Solutions',
+  'config.dev'         => 'Mayra Bueno',
   'config.state'       => 'Estado de São Paulo',
-  'config.site-domain' => 'caraguatatuba.sp.gov.br',
+  'config.site-domain' => 'Solutions',
   'config.version'     => '1.0.0',
 
   'action.create' => ':icon Novo Item',
@@ -85,8 +85,8 @@ return [
   'lbl.attention'    => 'Atenção!',
   'lbl.base-year'    => 'Ano Base',
   'lbl.code'         => 'COD.',
-  'lbl.created-at'   => 'Data de Cadastro',
-  'lbl.updated-at'   => 'Última Atualização',
+  'lbl.created-at'   => 'Cadastro',
+  'lbl.updated-at'   => 'Atualização',
   'lbl.deleted-at'   => 'Data de Exclusão',
   'lbl.grouped-by'   => 'Agrupado por: :attribute',
   'lbl.hide'         => 'Ocultar',

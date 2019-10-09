@@ -1,13 +1,13 @@
 var AdminTR = AdminTR || {};
 
 AdminTR.DataTable = (function() {
-    
+
   function DataTable(resource, $_container, is_printable = true, is_exportable = true, $_form = []) {
 
     const ICON_TYPE    = 'fa-sync-alt';
     const ICON_SIZE    = 'fa-5x';
     const ICON_COLOR   = 'text-info';
-    
+
     this.resource      = resource;
     this.container     = $_container;
 
@@ -30,21 +30,21 @@ AdminTR.DataTable = (function() {
     this.is_printable  = is_printable;
     this.is_exportable = is_exportable;
   }
-  
+
   DataTable.prototype.initialize = function() {
-    
+
     getContent.call(this, this.url);
   }
 
   function getContent(url) {
-    
+
     $.ajax({
-      url: url, 
-      type: 'GET', 
-      data: (this.form.length > 0) ? jQuery.param(this.form) : this.form, 
-      beforeSend: loading.call(this), 
-      success: success.bind(this), 
-      error: error.bind(this), 
+      url: url,
+      type: 'GET',
+      data: (this.form.length > 0) ? jQuery.param(this.form) : this.form,
+      beforeSend: loading.call(this),
+      success: success.bind(this),
+      error: error.bind(this),
       complete: complete.bind(this)
     });
   }
@@ -64,7 +64,7 @@ AdminTR.DataTable = (function() {
     if (AdminTR.TableDescription) {
 
       var tableDescription = new AdminTR.TableDescription();
-    
+
       tableDescription.initialize();
     }
   }
@@ -117,7 +117,7 @@ AdminTR.DataTable = (function() {
   function navigate(e) {
 
     e.preventDefault();
-      
+
     getContent.call(this, $(e.currentTarget).attr('href'));
   }
 
@@ -133,11 +133,11 @@ AdminTR.DataTable = (function() {
       $('input[name="C_sort"]').val(field.value);
 
     if (field.name === 'C_order')
-      
+
       $('input[name="C_order"]').val(field.value);
 
     if (field.name === 'C_group')
-      
+
       $('input[name="C_group"]').val(field.value);
   }
 
@@ -157,7 +157,7 @@ AdminTR.DataTable = (function() {
 
     // Remove per page attributes from this.form array
     this.form = this.form.filter(function(obj) {
-      
+
       return (obj.name !== 'C_per_page');
     });
 
@@ -190,7 +190,7 @@ AdminTR.DataTable = (function() {
 
     // Remove order attributes from this.form array
     this.form = this.form.filter(function(obj) {
-      
+
       return (obj.name !== 'C_sort') && (obj.name !== 'C_order');
     });
 
@@ -212,7 +212,7 @@ AdminTR.DataTable = (function() {
     var C_order_value = null;
 
     this.form.forEach(function(field, index) {
-        
+
       // Get C_sort value
       if (field.name === 'C_sort')
 
@@ -227,7 +227,7 @@ AdminTR.DataTable = (function() {
     var target = this.container
                             .find('.datatable')
                             .find(`th[data-sort="${ C_sort_value }"]`);
-    
+
     // Reset current target data attributes
     resetCurrentTargetDataAttributes.call(this, C_order_value, target);
 
@@ -271,7 +271,7 @@ AdminTR.DataTable = (function() {
 
     $(target).siblings('[data-sortable]').each(function(index, element) {
 
-      $(element).attr('data-order', function(k, v) { 
+      $(element).attr('data-order', function(k, v) {
 
         return 'ASC';
       });
@@ -312,16 +312,16 @@ AdminTR.DataTable = (function() {
 
     // Verify if "C_group" exists in this.form array
     var is_grouped = this.form.filter(function(obj) {
-      
+
       return (obj.name === 'C_group');
     });
 
     // Remove order attributes from this.form array
     this.form = this.form.filter(function(obj) {
-      
+
       return (obj.name !== 'C_group');
     });
-    
+
     // If is grouped and it's the same on the current target
     if (is_grouped.length > 0 && is_grouped[0].value === $_currentTarget.closest('a').data('group')) {
 
@@ -344,7 +344,7 @@ AdminTR.DataTable = (function() {
     var C_group_value = null;
 
     this.form.forEach(function(field, index) {
-        
+
       // Get C_group value
       if (field.name === 'C_group')
 
@@ -367,7 +367,7 @@ AdminTR.DataTable = (function() {
 
     $(target).toggleClass('text-secondary text-primary');
   }
-  
+
   return DataTable;
-    
+
 }());

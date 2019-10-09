@@ -23,9 +23,9 @@ class AuthController extends BaseController {
 
         $remember = true;
 
-      Event::fire('auth.trying', $input['matricula']);
+      Event::fire('auth.trying', $input['email']);
 
-      if (Auth::attempt(array('matricula' => $input['matricula'], 'password' => $input['password']), $remember)) {
+      if (Auth::attempt(array('email' => $input['email'], 'password' => $input['password']), $remember)) {
 
         $user = Auth::user();
 
@@ -39,9 +39,9 @@ class AuthController extends BaseController {
 
       } else {
 
-        Event::fire('auth.attempting', $input['matricula']);
+        Event::fire('auth.attempting', $input['email']);
 
-        $user = User::where('matricula', $input['matricula'])->withTrashed()->first();
+        $user = User::where('email', $input['email'])->withTrashed()->first();
 
         $message = Lang::get('auth.msg.error.invalid-user');
 

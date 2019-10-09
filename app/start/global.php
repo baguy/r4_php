@@ -143,20 +143,6 @@ Event::subscribe('LoggerEventHandler');
 
 User::observe(new UserObserver);
 
-Solicitacao::observe(new SolicitacaoObserver);
-
-Exame::observe(new ExameObserver);
-
-Paciente::observe(new PacienteObserver);
-
-Laudo::observe(new LaudoObserver);
-
-DownloadPDF::observe(new DownloadPDF);
-
-Produto::observe(new Produto);
-
-Unidade::observe(new Unidade);
-
 /*
 |--------------------------------------------------------------------------
 | Custom Validators

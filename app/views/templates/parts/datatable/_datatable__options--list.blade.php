@@ -6,8 +6,8 @@
       [
         '10'  => mb_strtoupper(Lang::get('application.form.select.items-per-page', ['number' => 10]), 'UTF-8'),
         '25'  => mb_strtoupper(Lang::get('application.form.select.items-per-page', ['number' => 25]), 'UTF-8'),
-        // '50'  => mb_strtoupper(Lang::get('application.form.select.items-per-page', ['number' => 50]), 'UTF-8'),
-        // '100' => mb_strtoupper(Lang::get('application.form.select.items-per-page', ['number' => 100]), 'UTF-8')
+        '50'  => mb_strtoupper(Lang::get('application.form.select.items-per-page', ['number' => 50]), 'UTF-8'),
+        '100' => mb_strtoupper(Lang::get('application.form.select.items-per-page', ['number' => 100]), 'UTF-8')
       ],
       null,
       array(
@@ -44,50 +44,6 @@
           <a href="{{ $route_export }}" class="dropdown-item js-export-xls">
             <i class="fas fa-table fa-fw"></i> {{ trans('application.btn.excel') }}
           </a>
-
-        @endif
-
-        @if(Auth::user()->hasRole('LAB'))
-
-          @if (isset($show_export_vdrl))
-            @if ($show_export_vdrl)
-
-              <a href="{{ $route_export_vdrl }}" class="dropdown-item js-export-xls">
-                <i class="fas fa-table fa-fw"></i> {{ trans('application.btn.excel_vdrl') }}
-              </a>
-
-            @endif
-          @endif
-
-          @if (isset($show_export_hiv))
-            @if ($show_export_hiv)
-
-              <a href="{{ $route_export_hiv }}" class="dropdown-item js-export-xls">
-                <i class="fas fa-table fa-fw"></i> {{ trans('application.btn.excel_hiv') }}
-              </a>
-
-            @endif
-          @endif
-
-          @if (isset($show_export_toxo))
-            @if ($show_export_toxo)
-
-              <a href="{{ $route_export_toxo }}" class="dropdown-item js-export-xls">
-                <i class="fas fa-table fa-fw"></i> {{ trans('application.btn.excel_toxo') }}
-              </a>
-
-            @endif
-          @endif
-
-          @if (isset($show_export_protocolo))
-            @if ($show_export_protocolo)
-
-              <a href="{{ $route_export_protocolo }}" class="dropdown-item js-export-xls">
-                <i class="fas fa-table fa-fw"></i> {{ trans('application.btn.excel_protocolo') }}
-              </a>
-
-            @endif
-          @endif
 
         @endif
 

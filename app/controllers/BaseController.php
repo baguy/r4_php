@@ -41,8 +41,8 @@ class BaseController extends Controller {
 
 		if ($object) {
 
-			LoggerHelper::log('INDEX', Lang::get('logs.msg.index', ['resource' => MainHelper::getTable($object['model'])]));
-			
+			// LoggerHelper::log('INDEX', Lang::get('logs.msg.index', ['resource' => MainHelper::getTable($object['model'])]));
+
 			$elements = $object['query'];
 
 			$parameters = Input::except('_token', '_method');
@@ -55,25 +55,25 @@ class BaseController extends Controller {
 
 			if ($parameters) {
 
-				LoggerHelper::log('SEARCH', Lang::get('logs.msg.index.search', [
-	        'resource'  => MainHelper::getTable($object['model']),
-	        'parameters' => json_encode($parameters)
-	      ]));
+				// LoggerHelper::log('SEARCH', Lang::get('logs.msg.index.search', [
+	      //   'resource'  => MainHelper::getTable($object['model']),
+	      //   'parameters' => json_encode($parameters)
+	      // ]));
 
 	      // Model order by parameters
 
 	      if (array_key_exists('C_sort', $parameters))
-	      	
+
 	      	$ordering = array_only($parameters, array('C_sort', 'C_order'));
 
 	      if (array_key_exists('C_per_page', $parameters))
-	      	
+
 	      	$perPage  = array_only($parameters, array('C_per_page'));
 
 	      // Model group by parameters
 
 	      if (array_key_exists('C_group', $parameters))
-	      	
+
 	      	$grouping = array_only($parameters, array('C_group'));
 
 	      $parameters = array_except($parameters, array('page', 'C_sort', 'C_order', 'C_per_page', 'C_group'));
@@ -87,7 +87,7 @@ class BaseController extends Controller {
 	      $generals = array_filter($parameters, function($k) { return !starts_with($k, 'S_'); }, ARRAY_FILTER_USE_KEY);
 
 				foreach ($generals as $key => $parameter) {
-					
+
 					if($parameter) {
 
 						$elements = $elements->getGeneralRestrictions(function($q) use($resource, $key, $parameter) {
@@ -113,16 +113,16 @@ class BaseController extends Controller {
 			$elements = $elements->getContent(null, $perPage)->build();
 
 			return View::make("{$object['folder']}.table", compact('elements'));
-			
+
 		}
 
-		return Response::make('<div class="alert alert-danger">' 
-														. Lang::get('application.msg.error.resource-not-exists', [ 'resource' => $resource ]) . 
+		return Response::make('<div class="alert alert-danger">'
+														. Lang::get('application.msg.error.resource-not-exists', [ 'resource' => $resource ]) .
 													'</div>');
 	}
 
   public function unique($table, $field, $id) {
-    
+
     $input = Input::all();
 
     $validator = UniqueValidator::validate($input, $table, $field, $id);
