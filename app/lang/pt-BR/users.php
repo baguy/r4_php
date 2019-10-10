@@ -17,6 +17,7 @@ return array(
   'page.title.index'           => 'Lista de Usuários',
   'page.title.show'            => 'Perfil',
   'page.title.change-password' => 'Alterar Senha',
+  'page.title.avatar'          => 'Adicionar imagem para avatar',
 
   'help.actual.password' => 'Senha atual do usuário logado no sistema',
   'help.password'        => 'Preencha somente se deseja alterar a senha',
@@ -66,8 +67,6 @@ return array(
   'lbl.registro'                  => 'Registro',
   'lbl.matricula'                 => 'Matrícula',
   'lbl.unidade'                   => 'Unidade',
-
-  'txt.assinatura'                => '*A imagem deve estar nomeada com a CRBIO (registro) do responsável, letras minúsculas, sem espaço e sem caracteres especiais.',
 
   'plh.name'                      => 'Nome Completo',
   'plh.email'                     => 'Email do Usuário',

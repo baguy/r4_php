@@ -22,6 +22,10 @@ Route::resource('main', 'MainController');
 
 Route::get('list/{resource}/{objects?}/{type?}', 'BaseController@getElements');
 
+Route::get('login', ['as' => 'login', 'uses' => 'AuthController@getLogin']);
+
+Route::get('new', ['as' => 'new', 'uses' => 'AuthController@newUser']);
+
 // Authentication
 Route::get('login', 'AuthController@getLogin');
 Route::post('login', 'AuthController@postLogin');
@@ -60,7 +64,6 @@ Route::group(array('before' => 'auth'), function() {
 	])->where('id', '[0-9]+');
 
 
-
 	// BASES
 
 	// Unique Validator
@@ -71,10 +74,10 @@ Route::group(array('before' => 'auth'), function() {
 
 	  // USERS
 
-		// Assinatura
-		Route::get('users/assinatura', ['as' => 'users.assinatura', 'uses' => 'UserController@createAssinatura']);
-		Route::post('users/upload-assinatura', ['as' => 'users.upload-assinatura', 'uses' => 'UserController@uploadAssinatura']);
-		Route::post('uploads', ['as' => 'users.upload-assinatura', 'uses' => 'UserController@uploadAssinatura']);
+		// Avatar
+		Route::get('users/avatar', ['as' => 'users.avatar', 'uses' => 'UserController@createAvatar']);
+		Route::post('users/upload-avatar', ['as' => 'users.upload-avatar', 'uses' => 'UserController@uploadAvatar']);
+		Route::post('uploads', ['as' => 'users.upload-avatar', 'uses' => 'UserController@uploadAvatar']);
 
 		// Report
     Route::get('users/report', 'UserController@report');
@@ -96,12 +99,13 @@ Route::group(array('before' => 'auth'), function() {
 	  	'as' => 'users.redefine-password', 'uses' => 'UserController@redefinePassword'
 	  ])->where('id', '[0-9]+');
 
+		// Resource
+		Route::resource('users', 'UserController');
+
 
 		// COMENTÁRIOS
 		Route::resource('comentarios', 'ComentarioController');
 
-
-	  // DASHBOARD
 
 	  // Panel
 	  Route::get('dashboard', [

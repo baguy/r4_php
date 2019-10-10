@@ -20,13 +20,9 @@
 
   @define $authMinRoleId     = Auth::user()->minRole()->id
 
-@if ( Auth::user()->hasRole('ADMIN') )
-
-  <p>
-    Administrador, para disponibilizar ao sistema novas assinaturas, favor nomear imagem com a CRBIO (registro) do responsável.
     {{
       link_to_route(
-        'users.assinatura',
+        'users.avatar',
         trans('application.btn.upload'),
         Auth::user()->id,
         array(
@@ -34,10 +30,7 @@
         )
         )
       }}
-  </p>
 
-
-@endif
 
   <div class="row">
 
@@ -175,30 +168,6 @@
           <span class="badge badge-secondary">
             {{ $user->minRole()->name }}
           </span>
-
-          <!-- BEGIN - Unidade -->
-
-          @if ($user->unidade()->withTrashed()->exists())
-
-            @define $unidade = $user->unidade()->withTrashed()->select('unidades.id', 'unidades.nome')->orderBy('nome', 'ASC')->get()
-
-
-            <hr>
-
-            <strong class="d-block">
-              <i class="fas fa-building fa-fw mr-1"></i> {{ trans('users.unidade') }}
-            </strong>
-
-
-            <ul class="list-unstyled pl-3 ml-1" style="list-style: circle;">
-
-              {{ $user->unidade->nome }}
-
-            </ul>
-
-          @endif
-
-          <!-- END - Unidade -->
 
         </div>
 
@@ -390,26 +359,6 @@
                       @endif
 
                     @endif
-
-                  <!-- Timeline Item -->
-
-                  <li>
-                    <i class="fa fa-{{$icons[$log->action]}} bg-{{$colors[$log->action]}}"></i>
-
-                    <div class="timeline-item">
-                      <span class="time"><i class="far fa-clock"></i> {{ $log->created_at->format('H:i:s') }}</span>
-
-                      <h3 class="timeline-header">
-                        <strong class="text-{{$colors[$log->action]}}">{{ $log->action }}</strong>
-                      </h3>
-
-                      <div class="timeline-body">
-                        {{ $log->message }}
-                      </div>
-                    </div>
-                  </li>
-
-                  <!-- /.Timeline Item -->
 
                   @endforeach
 

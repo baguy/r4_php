@@ -47,7 +47,7 @@
               'classes' => 'w-auto',
               'sort'    => 'created_at',
               'order'   => $C_sort && !$C_group ? 'ASC' : 'DESC',
-              'label'   => trans('pacientes.paciente'),
+              'label'   => trans('users.users'),
               'icon'    => $C_sort && !$C_group ? 'fa-sort text-muted' : 'fa-sort-down'
             ])
 

@@ -1,7 +1,7 @@
 <?php
 
 return [
-  
+
   /*
   |--------------------------------------------------------------------------
   | Authentication Language Lines
@@ -18,6 +18,7 @@ return [
 
   'lbl.forgot-my-password' => 'Esqueci minha senha',
   'lbl.remember'           => 'Permanecer Conectado',
+  'lbl.new-user'           => 'Cadastrar novo usuário',
 
   'mail.remind.subject.password-reset' => 'Redefinição de Senha',
   'mail.remind.msg.password-reset'     => 'Para alterar sua senha preencha este formulário: :link',

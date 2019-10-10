@@ -1,18 +1,16 @@
 @extends('templates.application')
 
 @section('PAGE_TITLE')
-  {{ trans('users.page.title.create') }}
+  {{ trans('users.page.title.avatar') }}
 @stop
 
 @section('STYLES')
-
-
 
 @stop
 
 @section('MAIN')
 
-	@include('users/_assinatura')
+	@include('users/_avatar')
 
 @stop
 

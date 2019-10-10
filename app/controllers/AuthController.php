@@ -170,4 +170,11 @@ class AuthController extends BaseController {
 
     return 'false';
   }
+
+  public function newUser() {
+
+    return View::make('auth.new-user');
+
+  }
+  
 }

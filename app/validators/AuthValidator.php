@@ -15,7 +15,7 @@ Class AuthValidator {
 	public static function login($input) {
 
 		self::$rules = [
-			'matricula'    => "required",
+			'email'    => "required",
 	    'password' => "required|min:10|max:60"
 		];
 

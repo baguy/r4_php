@@ -25,7 +25,7 @@
 
 
       <!-- Logar com email -->
-        {{-- <div class="form-group">
+        <div class="form-group">
 
           <div class="input-group {{ ($errors->has('email')) ? 'has-error' : '' }}">
 
@@ -55,53 +55,9 @@
             </div>
             @endif
 
-          </div> --}}
-
-          {{-- <small id="emailHelp" class="form-text text-muted">
-            {{ trans('application.misc.institutional-email') }} - <code class="text-info"
-            data-tooltip="tooltip"
-            data-placement="bottom"
-            data-container="small"
-            title="{{ trans('application.misc.click-to-copy') }}" style="cursor: pointer;">
-              {{'@'}}{{ trans('application.config.site-domain') }}
-            </code>
-          </small> --}}
-
-        {{-- </div> --}}
-
-
-
-        <!-- Logar com matrícula -->
-        <div class="input-group {{ ($errors->has('matricula')) ? 'has-error' : '' }}">
-
-          {{
-            Form::text(
-              'matricula',
-              Input::old('matricula'),
-              array(
-                'id'               => 'matricula',
-                'class'            => 'form-control',
-                'placeholder'      => trans('users.lbl.matricula'),
-              )
-            )
-          }}
-
-          <div class="input-group-append">
-            <span id="matriculaAddon" class="input-group-text rounded-right">
-              <i class="fas fa-id-badge fa-fw"></i>
-            </span>
           </div>
-
-          @if ($errors->has('matricula'))111
-          <div class="invalid-feedback">
-            {{ $errors->first('matricula') }}
-          </div>
-          @endif
 
         </div>
-
-
-
 
 
         <div class="input-group mb-3 {{ ($errors->has('password')) ? 'has-error' : '' }}">
@@ -148,6 +104,12 @@
       <p class="mt-2 mb-1 text-right">
         <a href="{{ url('password/remind') }}" class="">
           {{ trans('auth.lbl.forgot-my-password') }} <i class="fas fa-arrow-right"></i>
+        </a>
+      </p>
+
+      <p class="mt-2 mb-1 text-right">
+        <a href="{{ url('new') }}" class="">
+          {{ trans('auth.lbl.new-user') }} <i class="fas fa-arrow-right"></i>
         </a>
       </p>
 

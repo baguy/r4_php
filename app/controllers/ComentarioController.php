@@ -17,6 +17,11 @@ class ComentarioController extends \BaseController {
 
 		$this->selects = $this->service->selects();
 
+		$this->beforeFilter('role:SUPER', array('only' => array('redefinePassword')));
+		$this->beforeFilter('role:ADMIN', array('only' => array(
+			'create', 'store', 'destroy', 'restore', 'report', 'export', 'printAll'
+		)));
+
 	}
 
 	/**

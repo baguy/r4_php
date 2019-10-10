@@ -34,9 +34,8 @@ class UserController extends BaseController {
   public function create() {
 
     $roles = $this->role->orderBy('id', 'ASC')->get(['id', 'name', 'description']);
-    $unidades = MainHelper::fixArray2(Unidade::orderBy('nome', 'asc')->get(),'id','nome');
 
-    return View::make('users.create')->with('roles', $roles)->with('unidades', $unidades)->with('selects', $this->selects);
+    return View::make('users.create')->with('roles', $roles)->with('selects', $this->selects);
   }
 
   public function store() {
@@ -95,14 +94,11 @@ class UserController extends BaseController {
 
     $roles = $this->role->orderBy('id', 'ASC')->get(['id', 'name', 'description']);
 
-    $unidades = MainHelper::fixArray2(Unidade::orderBy('nome', 'asc')->get(),'id','nome');
-
     $this->service->accessVerification($user);
 
     return View::make('users.edit', compact('user'))
                                                   ->with('roles', $roles)
-                                                  ->with('selects', $this->selects)
-                                                  ->with('unidades', $unidades);
+                                                  ->with('selects', $this->selects);
   }
 
   public function update($id) {
@@ -288,20 +284,19 @@ class UserController extends BaseController {
     return Response::json($users, 200, $headers, JSON_UNESCAPED_UNICODE);
   }
 
-  public function createAssinatura() {
+  public function createAvatar() {
 
-    return View::make('users.create_assinatura');
-
+    return View::make('users.create_avatar');
   }
 
-  public function uploadAssinatura() {
+  public function uploadAvatar() {
 
     if(Input::hasFile('file')){
 
       try {
 
         $file = Input::file('file');
-        $file->move('public/assets/_dist/img/assinaturas', $file->getClientOriginalName());
+        $file->move('public/assets/_dist/img/avatar', $file->getClientOriginalName());
 
         return Redirect::route('users.index')
                         ->with('_status', Lang::get('application.msg.status.upload-successfull'));

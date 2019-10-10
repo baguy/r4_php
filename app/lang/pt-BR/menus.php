@@ -16,10 +16,7 @@ return [
   'sidebar.item.logs'            => 'Logs de Acesso',
   'sidebar.item.panel'           => 'Painel',
   'sidebar.item.users'           => 'Usuários',
-  'sidebar.item.unidades'        => 'Unidades',
-  'sidebar.item.solicitacoes'    => 'Solicitações',
-  'sidebar.item.produtos'        => 'Produtos',
-  'sidebar.item.exames'          => 'Exames',
+  'sidebar.item.coments'        => 'Comentários',
 
   'sidebar.subitem.pendentes'    => 'Pendentes',
   'sidebar.subitem.aguardando'   => 'Aguardando aprovação',

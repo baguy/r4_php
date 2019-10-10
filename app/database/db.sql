@@ -25,13 +25,13 @@ DROP TABLE IF EXISTS `r4_php_db`.`users` ;
 
 CREATE TABLE IF NOT EXISTS `r4_php_db`.`users` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(200) NOT NULL,
-  `login` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(200) NOT NULL,
+  `nickname` VARCHAR(45) NOT NULL,
   `email` VARCHAR(150) NOT NULL,
-  `senha` VARCHAR(75) NOT NULL,
+  `password` VARCHAR(75) NOT NULL,
   `reset_senha` TINYINT NULL,
   `remember_token` VARCHAR(100) NULL,
-  `foto` VARCHAR(45) NULL,
+  `avatar` VARCHAR(45) NULL,
   `created_at` TIMESTAMP NOT NULL,
   `updated_at` TIMESTAMP NULL,
   `deleted_at` TIMESTAMP NULL,
@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS `r4_php_db`.`throttles` (
   `last_access_at` TIMESTAMP NULL,
   `attempts` TINYINT(4) NULL,
   `suspended` TINYINT NULL,
+  `last_attempt_at` TIMESTAMP NULL,
   `user_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_throttles_user_idx` (`user_id` ASC),
@@ -69,8 +70,8 @@ DROP TABLE IF EXISTS `r4_php_db`.`roles` ;
 
 CREATE TABLE IF NOT EXISTS `r4_php_db`.`roles` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(45) NULL,
-  `descriacao` VARCHAR(75) NULL,
+  `name` VARCHAR(45) NULL,
+  `description` VARCHAR(75) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -107,7 +108,7 @@ DROP TABLE IF EXISTS `r4_php_db`.`comments` ;
 
 CREATE TABLE IF NOT EXISTS `r4_php_db`.`comments` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `texto` VARCHAR(400) NOT NULL,
+  `text` VARCHAR(400) NOT NULL,
   `created_at` TIMESTAMP NOT NULL,
   `updated_at` TIMESTAMP NULL,
   `deleted_at` TIMESTAMP NULL,
@@ -147,8 +148,8 @@ DROP TABLE IF EXISTS `r4_php_db`.`loggers` ;
 
 CREATE TABLE IF NOT EXISTS `r4_php_db`.`loggers` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `acao` VARCHAR(45) NULL,
-  `descricao` VARCHAR(200) NULL,
+  `action` VARCHAR(45) NULL,
+  `message` VARCHAR(200) NULL,
   `user_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_loggers_user_idx` (`user_id` ASC),
@@ -173,11 +174,11 @@ INSERT INTO `roles` VALUES
 (3, 'USUARIO', 'Usuário Comum');
 
 INSERT INTO `users` VALUES
-(1, 'Administrador', 'ADMIN', 'mayradbueno@gmail.com', '$2y$10$7CciQTirmaPIbBhvfENREemZqEhy1J.VOUwmWEiK7GMcy.3UbYpTa', 0,
+(1, 'Administrador', 'ADMIN', 'mayradbueno@gmail.com', '$2y$10$hravkHv4Whx6oXsw1jMwsOAovVvQ29vlTwVlLox1lgq9ZZUFOG6MO', 0,
 '$2y$10$X/ri8NeCdc3oc2swndWwQ.uZSjDZFVMmaIS1/zQAMNg16cIaEbWJu', null, now(), null, null);
 
 INSERT INTO `throttles` VALUES
-(1, NULL, 0, NULL, 0, 0, 1);
+(1, NULL, 0, NULL, 0, 0, NULL, 1);
 
 INSERT INTO `users_roles` (`id`, `user_id`, `role_id`) VALUES
 (1,1,1),(2,1,2),(3,1,3);

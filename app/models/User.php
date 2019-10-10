@@ -18,7 +18,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	protected $hidden      = array('password', 'remember_token');
 
-  protected $fillable    = array('name', 'email', 'responsavel', 'unidade_id', 'registro', 'matricula');
+  protected $fillable    = array('name', 'email', 'nickname', 'avatar');
 
   protected $guarded     = array('password');
 
@@ -33,34 +33,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
   public function throttle() {
     return $this->hasOne('Throttle');
   }
-
-  // BEGIN - Laudo
-
-  public function laudos() {
-    return $this->belongsToMany('Laudo');
-  }
-
-  // END - Laudo
-
-	// BEGIN - Solicitacao
-
-	public function solicitacao() {
-		return $this->belongsToMany('Solicitacao');
-	}
-
-	// END - Solicitacao
-
-	// BEGIN - Unidade
-
-	public function unidade() {
-		return $this->belongsTo('Unidade')->withTrashed();
-	}
-
-	// END - Unidade
-
-	public function download(){
-		return $this->hasMany('DownloadPDF');
-	}
 
   public function hasRole($name) {
 

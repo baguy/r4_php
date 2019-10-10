@@ -12,6 +12,26 @@
 
 <div class="card">
 
+  <div class="row">
+    <div class="col-11">
+    </div>
+
+    <div class="col-1">
+      <span class="float-right">
+        {{
+          link_to_route(
+            'login',
+            trans('application.btn.login'),
+            null,
+            array(
+              'class' => 'mr-2'
+            )
+            )
+          }}
+        </span>
+      </div>
+  </div>
+
   <div class="card-header">
 
     <div class="row">
