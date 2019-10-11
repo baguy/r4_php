@@ -64,9 +64,7 @@ return array(
   'lbl.new-password'              => 'Nova Senha',
   'lbl.new-password-confirmation' => 'Confirmar Nova Senha',
   'lbl.responsavel'               => 'Responsável por aprovar resultados',
-  'lbl.registro'                  => 'Registro',
-  'lbl.matricula'                 => 'Matrícula',
-  'lbl.unidade'                   => 'Unidade',
+  'lbl.nickname'                  => 'Apelido',
 
   'plh.name'                      => 'Nome Completo',
   'plh.email'                     => 'Email do Usuário',
@@ -76,8 +74,7 @@ return array(
   'plh.roles'                     => 'Nível(is)',
   'plh.new-password'              => 'Nova Senha',
   'plh.new-password-confirmation' => 'Confirmar Nova Senha',
-  'plh.registro'                  => 'Registro do Conselho',
-  'plh.matricula'                 => 'Matrícula da Prefeitura',
+  'plh.nickname'                  => 'Apelido',
 
   'filter.plh.name-&-email'                => 'Procurar por nome ou email',
   'filter.attempts.opt.successful'         => 'Com Êxito',

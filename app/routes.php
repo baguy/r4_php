@@ -26,6 +26,8 @@ Route::get('login', ['as' => 'login', 'uses' => 'AuthController@getLogin']);
 
 Route::get('new', ['as' => 'new', 'uses' => 'AuthController@newUser']);
 
+Route::post('newStore', ['as' => 'auth.newStore', 'uses' => 'AuthController@newStore']);
+
 // Authentication
 Route::get('login', 'AuthController@getLogin');
 Route::post('login', 'AuthController@postLogin');
@@ -78,18 +80,6 @@ Route::group(array('before' => 'auth'), function() {
 		Route::get('users/avatar', ['as' => 'users.avatar', 'uses' => 'UserController@createAvatar']);
 		Route::post('users/upload-avatar', ['as' => 'users.upload-avatar', 'uses' => 'UserController@uploadAvatar']);
 		Route::post('uploads', ['as' => 'users.upload-avatar', 'uses' => 'UserController@uploadAvatar']);
-
-		// Report
-    Route::get('users/report', 'UserController@report');
-
-    // Export
-    Route::get('users/export/{type}', ['as' => 'users.export', 'uses' => 'UserController@export']);
-
-    // Print One
-    Route::get('users/{id}/print-one', ['as' => 'users.print-one', 'uses' => 'UserController@printOne'])->where(array('id' => '[0-9]+'));
-
-    // Print All
-    Route::get('users/print-all', ['as' => 'users.print-all', 'uses' => 'UserController@printAll']);
 
     // Restore
 	  Route::patch('users/{id}/restore', ['as' => 'users.restore', 'uses' => 'UserController@restore'])->where('id', '[0-9]+');

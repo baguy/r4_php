@@ -26,7 +26,6 @@ DROP TABLE IF EXISTS `r4_php_db`.`users` ;
 CREATE TABLE IF NOT EXISTS `r4_php_db`.`users` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(200) NOT NULL,
-  `nickname` VARCHAR(45) NOT NULL,
   `email` VARCHAR(150) NOT NULL,
   `password` VARCHAR(75) NOT NULL,
   `reset_senha` TINYINT NULL,

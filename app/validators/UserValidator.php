@@ -22,8 +22,8 @@ Class UserValidator {
 		self::$rules = [
 			'name'  => "required|max:100",
 			'email' => "required|max:100|email|unique:users",
-			'matricula' => "required|unique:users,matricula",
-	    'roles' => "required"
+			'password'
+				=> "min:10|max:60|confirmed|regex:/^(?=(?:.*[a-zA-z]{1,}))(?=(?:.*[0-9]){1,})(?=(?:.*[!@#$%&*]){1,})(.{10,})$/",
 		];
 
     $validator = Validator::make($input, self::$rules, self::$messages);

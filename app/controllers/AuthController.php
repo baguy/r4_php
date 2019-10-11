@@ -176,5 +176,11 @@ class AuthController extends BaseController {
     return View::make('auth.new-user');
 
   }
-  
+
+  public function newStore(){
+    $input = Input::all();
+    $input['role'] = 3;
+    return $input;
+  }
+
 }
