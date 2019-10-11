@@ -25,6 +25,7 @@ return [
 
   'btn.add'      => 'Adicionar',
   'btn.add-new'  => 'Adicionar Novo',
+  'btn.add-new-comment'  => 'Adicionar Novo Comentário',
   'btn.back'     => 'Voltar',
   'btn.cancel'   => 'Cancelar',
   'btn.clean'    => 'Limpar',
@@ -79,7 +80,6 @@ return [
   'error.js.msg.advice' => 'Ative-o em seu navegador para ter acesso ao site',
   'error.js.msg.tip'    => 'Caso seu navegador não dê suporte a javascript, você poderá atualizá-lo para uma versão mais recente',
 
-
   'lbl.about'        => 'Sobre',
   'lbl.active'       => 'Ativo',
   'lbl.attention'    => 'Atenção!',
@@ -108,6 +108,7 @@ return [
   'lbl.yes'          => 'Sim',
   'lbl.upload'       => 'Selecione arquivo para upload',
   'lbl.deleted'      => 'Excluído',
+  'lbl.edit-comment' => 'Editar comentário',
 
   'misc.click-to-copy'       => 'Clique para Copiar!',
   'misc.institutional-email' => 'Email institucional',
@@ -137,6 +138,7 @@ return [
   'msg.error.500-error'                       => 'Algo deu errado no sistema.',
   'msg.error.500-error-pdf'                   => 'Caso tenha tentado excluir um PDF, certifique-se de ter fechado o arquivo antes.',
   'msg.error.xls-protocol'                    => 'Selecione pelo menos um exame.',
+  'msg.error.password_confirmation' => "Campos 'Senha' e 'Confirmar Senha' não conferem.",
 
   'form.select.empty'          => 'Selecionar :field',
   'form.select.items-per-page' => ':number itens por página',

@@ -66,7 +66,7 @@ return array(
   'lbl.responsavel'               => 'Responsável por aprovar resultados',
   'lbl.nickname'                  => 'Apelido',
 
-  'plh.name'                      => 'Nome Completo',
+  'plh.name'                      => 'Nome que aparecerá no sistema',
   'plh.email'                     => 'Email do Usuário',
   'plh.password'                  => 'Senha de Acesso',
   'plh.password-confirmation'     => 'Confirmar Senha',

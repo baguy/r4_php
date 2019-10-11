@@ -1,40 +1,55 @@
-<div class="modal fade" id="{{ $modal_id }}" tabindex="-1" role="dialog" aria-labelledby="{{ $modal_label }}" aria-hidden="true">
+<div id="modalAddComment" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="{{ $modal_label }}">{{ trans('application.btn.add') }} {{ $title }}</h5>
+        <h5 class="modal-title">{{ trans('application.modal.confirmation.title') }}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+          <span aria-hidden="true"><i class="fas fa-times align-text-bottom"></i></span>
         </button>
       </div>
-      <div class="modal-body" data-error="{{ trans('application.msg.error.something-went-wrong') }}">
+      <div class="modal-body">
 
-        <div class="alert alert-success mb-2" role="alert" style="display: none;">
-          
+        {{
+          Form::open(
+            array(
+              'id' => 'mainForm',
+              'route' => 'comentarios.store'
+            )
+          )
+        }}
+
+        <div class="form-group {{ ($errors->has('text')) ? 'has-error' : '' }}">
+
+          {{ Form::label('text', trans('application.btn.add-new-comment')) }}
+
+          <div class="input-group">
+
+            {{
+              Form::textarea(
+                'text',
+                Input::old('text'),
+                array(
+                  'class'            => ($errors->has('text')) ? 'form-control has-error__icon' : 'form-control',
+                  'aria-describedby' => 'textAddon',
+                  'rows'             => 5
+                )
+              )
+            }}
+
+            @if ($errors->has('text'))
+            <div class="invalid-feedback">
+              {{ $errors->first('text') }}
+            </div>
+            @endif
+
+          </div>
+
         </div>
 
-        <div class="alert alert-danger mb-2 session-flash" role="alert" style="display: none;">
-          <ul class="list-unstyled"></ul>
-        </div>
-
-        @if ($resource === 'categorias')
-
-            @include('categorias/_form', ['is_parent' => false])
-
-        @elseif ($resource === 'subcategorias')
-
-            @include('subcategorias/_form', ['is_parent' => false])
-
-        @elseif ($resource === 'unidades')
-
-            @include('unidades/_form', ['is_parent' => false])
-
-        @endif
-        
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('application.btn.close') }}</button>
-        <button type="button" class="btn btn-primary js-modal-save-button">{{ trans('application.btn.save') }}</button>
+          <button type="submit" class="btn btn-primary">{{ trans('application.btn.confirm') }}</button>
+        {{ Form::close() }}
       </div>
     </div>
   </div>

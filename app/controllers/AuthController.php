@@ -178,9 +178,40 @@ class AuthController extends BaseController {
   }
 
   public function newStore(){
-    $input = Input::all();
-    $input['role'] = 3;
-    return $input;
-  }
+    $input = FormatterHelper::filter(Input::all(), array('name'));
+    $input['roles'][0] = 3;
+
+    if($input['password'] == $input['password_confirmation']){
+
+      $validator = UserValidator::store($input);
+
+        if ($validator->passes()) {
+
+          try {
+
+            UserService::store($input);
+
+            return Redirect::back()
+                            ->with('_status', Lang::get('application.msg.status.resource-created-successfully'));
+
+          } catch (Exception $e) {
+
+            Session::flash('_old_input', Input::all());
+
+            return Redirect::back()->with('_error', Lang::get('application.msg.error.something-went-wrong'));
+          }
+        }
+        return Redirect::back()
+                        ->withInput()
+                        ->withErrors($validator)
+                        ->with('_error', Lang::get('application.msg.error.validation-errors'));
+
+      }
+
+      return Redirect::back()
+                      ->withInput()
+                      ->with('_error', Lang::get('application.msg.error.password_confirmation'));
+
+    }
 
 }

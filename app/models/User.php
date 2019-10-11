@@ -34,6 +34,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     return $this->hasOne('Throttle');
   }
 
+	public function comments() {
+		return $this->hasMany('Comentario');
+	}
+
   public function hasRole($name) {
 
     foreach ($this->roles as $role) {

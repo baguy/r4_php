@@ -74,23 +74,7 @@ class MainService extends BaseService {
   }
 
   public function destroy($id) {
-
-    DB::beginTransaction();
-
-    try {
-
-      $this->produto->find($id)->delete();
-
-      DB::commit();
-
-    } catch (Exception $e) {
-
-      MainHelper::printLog($e);
-
-      DB::rollback();
-
-      throw $e;
-    }
+		
   }
 
   public function restore($id) {

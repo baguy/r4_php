@@ -36,6 +36,12 @@ Route::post('password/remind', 'AuthController@postRemind');
 Route::get('password/reset/{token}', 'AuthController@getReset');
 Route::post('password/reset', 'AuthController@postReset');
 
+// COMENTÁRIOS
+// Restore
+Route::patch('comentarios/{id}/restore', ['as' => 'comentarios.restore', 'uses' => 'ComentarioController@restore'])->where('id', '[0-9]+');
+
+Route::resource('comentarios', 'ComentarioController');
+
 // Error JS Route
 Route::get('errors/js', function() {
 	return View::make('errors.js');
@@ -92,36 +98,11 @@ Route::group(array('before' => 'auth'), function() {
 		// Resource
 		Route::resource('users', 'UserController');
 
-
-		// COMENTÁRIOS
-		Route::resource('comentarios', 'ComentarioController');
-
-
-	  // Panel
-	  Route::get('dashboard', [
-	  	'as' => 'dashboard.panel', 'uses' => 'DashboardController@panel'
-	  ]);
-
-	  // Charts
-	  Route::get('dashboard/charts/{resource}', [
-	  	'as' => 'dashboard.charts', 'uses' => 'DashboardController@charts'
-	  ]);
-
-
 	  // LOGS
 
 	  // Resource
 	  Route::resource('logs', 'LoggerController');
 
   });
-
-	# Rotas API (AJAX)
-	Route::get('busca_sus/{sus}', 'PacienteController@buscar_sus');
-	Route::get('findCidades/{uf}', 'PacienteController@findCidades');
-	Route::get('findDadosProduto/{id}', 'LaudoController@findDadosProduto');
-	Route::get('findSolicitacao/{num}', 'SolicitacaoController@findSolicitacao');
-	Route::get('findExame/{id}', 'AguardandoController@findExame');
-	Route::get('findPaciente/{id}', 'AguardandoController@findPaciente');
-	Route::get('findTipoReagente/{id}', 'AguardandoController@findTipoReagente');
 
 });

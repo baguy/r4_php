@@ -369,8 +369,8 @@ figure.table table th, figure.table table td {
   color:red;
 }
 
-.main-sidebar { background-color: #421200 !important }
-.control-sidebar { background-color: #421200 !important }
+.main-sidebar { background-color: #2c035e !important }
+.control-sidebar { background-color: #2c035e !important }
 
 .btn span.glyphicon {
 	opacity: 0;

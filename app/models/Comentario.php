@@ -13,4 +13,8 @@ class Comentario extends Eloquent {
       return $this->belongsTo('User');
     }
 
+    public function comentarioAtualizacao(){
+      return $this->hasMany('ComentarioAtualizacao');
+    }
+
 }

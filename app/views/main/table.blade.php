@@ -94,7 +94,7 @@
 
               <!-- DATATABLE - Options - List  -->
               @include('templates/parts/datatable/_datatable__options--list', array(
-                'show_tools'   => true,
+                'show_tools'   => false,
                 'show_print'   => false,
                 'show_export'  => false,
                 'is_groupable' => false,
@@ -134,7 +134,7 @@
               ])
 
               <td class="align-middle w-auto">
-                <span class="ellipsis">{{ $comment->texto }}</span>
+                <span class="ellipsis">{{ $comment->text }}</span>
               </td>
 
             @endif
@@ -142,7 +142,15 @@
             <!-- END - Show only when is not grouping -->
 
             <td class="align-middle w-auto">
-              <span class="ellipsis">{{ $comment->user->nome }}</span>
+              @if(is_null($comment->user->avatar))
+                <i class="fas fa-user-circle fa-2x text-muted"></i>
+              @else
+                <img src="{{ asset('assets/_dist/img/avatar/'.$comment->user->avatar) }}"
+                     alt="{{ $comment->user->name }}"
+                     class="brand-image img-circle elevation-3"
+                     style="opacity: .8">
+              @endif
+              <span class="ellipsis">{{ $comment->user->name }}</span>
             </td>
 
 
@@ -161,23 +169,23 @@
 
             @if (!$C_group)
 
-              @if($isAdmin)
+              <td class="align-middle col-options-3">
 
-                <td class="align-middle col-options-3">
+                @if(Auth::user())
+                  @if(Auth::user()->id == $comment->user_id || Auth::user()->hasRole('ADMIN'))
 
-                  <!-- DATATABLE - Options - Buttons  -->
-                  @include('templates/parts/datatable/_datatable__options--buttons', [
-                    'is_trashed'      => $isTrashed,
-                    'has_permission'  => false,
-                    'modal_id'        => $comment->id,
-                    'route_edit'      => route('main.edit', [ $comment->id ]),
-                    'route_show'      => route('main.show', [ $comment->id ]),
-                    'is_printable'    => false
-                  ])
+                    <!-- DATATABLE - Options - Buttons  -->
+                    @include('templates/parts/datatable/_datatable__options--buttons-main', [
+                      'is_trashed'      => $isTrashed,
+                      'has_permission'  => true,
+                      'modal_id'        => $comment->id,
+                      'is_printable'    => false
+                    ])
 
-                </td>
+                  @endif
+                @endif
 
-              @endif
+              </td>
 
             @endif
 
@@ -227,17 +235,6 @@
                         </footer>
                       </blockquote>
 
-                      @if(strtotime($comment->updated_at) > 0)
-                      <blockquote class="blockquote d-block">
-                        <p class="mb-0">
-                          <i class="fas fa-calendar-alt fa-fw mr-1"></i> {{ trans('application.lbl.updated-at') }}
-                        </p>
-                        <footer class="blockquote-footer">
-                          {{ FormatterHelper::dateTimeToPtBR($comment->updated_at) }}
-                        </footer>
-                      </blockquote>
-                      @endif
-
                       @if(strtotime($comment->deleted_at) > 0)
                       <blockquote class="blockquote d-block">
                         <p class="mb-0">
@@ -283,6 +280,8 @@
       @if(!$isTrashed)
 
         @include('main/_modal-delete')
+
+        @include('main/_modal-edit')
 
       @endif
 

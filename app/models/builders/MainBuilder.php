@@ -16,7 +16,7 @@
 
 		public function getQuery() {
 
-			$this->instance = $this->instance->withTrashed();
+			$this->instance = $this->instance;
 
 			return $this;
 		}

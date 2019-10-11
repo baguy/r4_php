@@ -106,16 +106,6 @@
 
         </div>
 
-        <small id="emailHelp" class="form-text text-muted">
-          {{ trans('application.misc.institutional-email') }} - <code class="text-info"
-          data-tooltip="tooltip"
-          data-placement="bottom"
-          data-container="small"
-          title="{{ trans('application.misc.click-to-copy') }}" style="cursor: pointer;">
-            {{'@'}}{{ trans('application.config.site-domain') }}
-          </code>
-        </small>
-
       </div>
 
 
@@ -254,7 +244,85 @@
 
           </div>
 
+
         @endif
+
+      @else
+
+        <div class="form-group {{ ($errors->has('password')) ? 'has-error' : '' }}">
+
+          {{ Form::label('password', trans('users.lbl.password')) }}<span class="obrigatorio">*</span>
+
+          <div class="input-group">
+
+            {{
+              Form::input(
+                'password',
+                'password',
+                Input::old('password'),
+                array(
+                  'class'            => ($errors->has('password')) ? 'form-control has-error__icon' : 'form-control',
+                  'placeholder'      => (isset($user->id)) ? trans('users.plh.new-password') : trans('users.plh.password'),
+                  'aria-describedby' => 'passwordHelp',
+                  'aria-labelledby'  => 'passwordAddon'
+                )
+              )
+            }}
+
+            <div class="input-group-append">
+              <span id="passwordAddon" class="input-group-text rounded-right">
+                <i class="fas fa-lock fa-fw"></i>
+              </span>
+            </div>
+
+            @if ($errors->has('password'))
+            <div class="invalid-feedback">
+              {{ $errors->first('password') }}
+            </div>
+            @endif
+
+          </div>
+
+        </div>
+
+        <div class="form-group {{ ($errors->has('password')) ? 'has-error' : '' }}">
+
+          {{ Form::label('password_confirmation', trans('users.lbl.password-confirmation')) }}<span class="obrigatorio">*</span>
+
+          <div class="input-group">
+
+            {{
+              Form::input(
+                'password',
+                'password_confirmation',
+                Input::old('password_confirmation'),
+                array(
+                  'class'            => ($errors->has('password_confirmation')) ? 'form-control has-error__icon' : 'form-control',
+                  'placeholder'      => (isset($user->id)) ?
+                    trans('users.plh.new-password-confirmation') :
+                    trans('users.plh.password-confirmation'),
+                  'aria-describedby' => 'passwordConfirmationHelp',
+                  'aria-labelledby'  => 'passwordConfirmationAddon'
+                )
+              )
+            }}
+
+            <div class="input-group-append">
+              <span id="password_confirmationAddon" class="input-group-text rounded-right">
+                <i class="fas fa-lock fa-fw"></i>
+              </span>
+            </div>
+
+            @if ($errors->has('password_confirmation'))
+            <div class="invalid-feedback">
+              {{ $errors->first('password_confirmation') }}
+            </div>
+            @endif
+
+          </div>
+
+
+
 
       @endif
 
@@ -404,7 +472,7 @@
 
             {{
               Form::checkbox(
-                'resetar',
+                'reset_senha',
                 1,
                 Input::old('resetar'),
                 array(

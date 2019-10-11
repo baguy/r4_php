@@ -130,7 +130,9 @@ DROP TABLE IF EXISTS `r4_php_db`.`comments_updates` ;
 CREATE TABLE IF NOT EXISTS `r4_php_db`.`comments_updates` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `comment_id` INT UNSIGNED NOT NULL,
+  `text` VARCHAR(400) NOT NULL,
   `created_at` TIMESTAMP NOT NULL,
+  `updated_at` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_comments_updates_comment_idx` (`comment_id` ASC),
   CONSTRAINT `fk_comments_updates_comments`
@@ -173,7 +175,7 @@ INSERT INTO `roles` VALUES
 (3, 'USUARIO', 'Usuário Comum');
 
 INSERT INTO `users` VALUES
-(1, 'Administrador', 'ADMIN', 'mayradbueno@gmail.com', '$2y$10$hravkHv4Whx6oXsw1jMwsOAovVvQ29vlTwVlLox1lgq9ZZUFOG6MO', 0,
+(1, 'Administrador', 'mayradbueno@gmail.com', '$2y$10$hravkHv4Whx6oXsw1jMwsOAovVvQ29vlTwVlLox1lgq9ZZUFOG6MO', 0,
 '$2y$10$X/ri8NeCdc3oc2swndWwQ.uZSjDZFVMmaIS1/zQAMNg16cIaEbWJu', null, now(), null, null);
 
 INSERT INTO `throttles` VALUES

@@ -105,30 +105,22 @@ class UserController extends BaseController {
 
     $input = FormatterHelper::filter(array_except(Input::all(), '_method'), array('name'));
 
-    $validator = UserValidator::update($input, $id);
+    try {
 
-    if ($validator->passes()) {
+      $this->service->update($input, $id);
 
-      try {
+      return Redirect::route('users.show', $id)
+                      ->with('_status', Lang::get('application.msg.status.resource-updated-successfully'));
 
-        $this->service->update($input, $id);
+    } catch (Exception $e) {
 
-        return Redirect::route('users.show', $id)
-                        ->with('_status', Lang::get('application.msg.status.resource-updated-successfully'));
+      Session::flash('_old_input', Input::all());
 
-      } catch (Exception $e) {
-
-        Session::flash('_old_input', Input::all());
-
-        return Redirect::back()->with('_error', Lang::get('application.msg.error.something-went-wrong'));
-      }
+      return Redirect::back()->with('_error', Lang::get('application.msg.error.something-went-wrong'));
     }
 
-    return Redirect::route('users.edit', $id)
-                    ->withInput()
-                    ->withErrors($validator)
-                    ->with('_error', Lang::get('application.msg.error.validation-errors'));
   }
+
 
   public function destroy($id) {
 
@@ -225,64 +217,6 @@ class UserController extends BaseController {
     }
   }
 
-  public function report() {
-
-    // $users = App::make('BaseController')->getElements('users', true);
-
-    $users = parent::getElements('users', true, 'get');
-
-    return View::make('users.report', compact('users'));
-  }
-
-  public function export($type) {
-
-    $users = parent::getElements('users', true, 'get');
-
-    $this->service->export($users, $type);
-  }
-
-  public function printOne($id) {
-
-    $user = $this->user->withTrashed()->find($id);
-
-    LoggingHelper::printing($user, 'print-one');
-
-    return View::make('users.print-one', compact('user'));
-  }
-
-  public function printAll() {
-
-    $parameters = Input::except('_token', '_method');
-
-    $users = parent::getElements('users', true);
-
-    LoggingHelper::printing($this->user, 'print-all', $parameters);
-
-    return View::make('users.print-all', compact('users'));
-  }
-
-  // BEGIN - Secretaria
-
-  // Return all users according with selected origin ("Secretaria")
-  public function findByOrigin($id) {
-
-    $users = $this->user
-                        ->withTrashed()
-                        ->whereHas('secretarias', function ($q) use($id) {
-
-                          $q->where('secretarias.id', '=', $id)->orWhereNotNull('secretarias.deleted_at');
-                        })
-                        ->whereHas('roles', function ($q) {
-
-                          $q->havingRaw('MIN(roles.id) > ?', [ 2 ]); // Removing ROOT and SUPER users
-                        })
-                        ->orderBy('email', 'ASC')
-                        ->lists('email', 'id');
-
-    $headers = ['Content-type'=> 'application/json; charset=utf-8'];
-
-    return Response::json($users, 200, $headers, JSON_UNESCAPED_UNICODE);
-  }
 
   public function createAvatar() {
 
@@ -296,9 +230,13 @@ class UserController extends BaseController {
       try {
 
         $file = Input::file('file');
-        $file->move('public/assets/_dist/img/avatar', $file->getClientOriginalName());
+        $file->move('assets/_dist/img/avatar/'.Auth::user()->email.'/', $file->getClientOriginalName());
 
-        return Redirect::route('users.index')
+        $user = User::find(Auth::user()->id);
+        $user->avatar = $user->email .'/'. $file->getClientOriginalName();
+        $user->save();
+
+        return Redirect::back()
                         ->with('_status', Lang::get('application.msg.status.upload-successfull'));
 
       } catch (Exception $e) {

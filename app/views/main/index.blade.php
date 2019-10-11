@@ -16,20 +16,39 @@
     <div class="col-11">
     </div>
 
-    <div class="col-1">
-      <span class="float-right">
-        {{
-          link_to_route(
-            'login',
-            trans('application.btn.login'),
-            null,
-            array(
-              'class' => 'mr-2'
-            )
-            )
-          }}
-        </span>
-      </div>
+    @if(Auth::user())
+      <div class="col-1">
+        <span class="float-right">
+          {{
+            link_to_route(
+              'users.show',
+              trans('users.page.title.show'),
+              Auth::user()->id,
+              array(
+                'class' => 'mr-2'
+              )
+              )
+            }}
+          </span>
+        </div>
+
+    @else
+      <div class="col-1">
+        <span class="float-right">
+          {{
+            link_to_route(
+              'login',
+              trans('application.btn.login'),
+              null,
+              array(
+                'class' => 'mr-2'
+              )
+              )
+            }}
+          </span>
+        </div>
+    @endif
+
   </div>
 
   <div class="card-header">
@@ -45,6 +64,19 @@
 
     @include('main/_produto')
 
+    @if(Auth::user())
+      <p>
+        <span class="float-right">
+          <a
+            class="dropdown-item"
+            href="#modalAddComment"
+            data-toggle="modal">
+            <i class="fas fa-plus fa-fw text-success"></i> {{ trans('application.btn.add-new-comment') }}
+          </a>
+        </span>
+      </p>
+    @endif
+
     <br>
 
     <div id="mainDataTableContainer" data-datatable-error="{{ trans('application.msg.error.datatable') }}"></div>
@@ -53,7 +85,7 @@
 
   <div class="card-footer">
 
-    <span class="float-right">
+    {{-- <span class="float-right">
       {{
         link_to_route(
           'main.create',
@@ -64,7 +96,7 @@
           )
         )
       }}
-    </span>
+    </span> --}}
 
   </div>
 
@@ -117,3 +149,9 @@
   </script>
 
 @stop
+
+@if(Auth::user())
+
+  @include('main/_modal-add')
+
+@endif

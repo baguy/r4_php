@@ -36,28 +36,8 @@ Class UserValidator {
   public static function update($input, $id) {
 
     self::$rules = [
-      'name'
-        => "required|max:100",
 
-      'email'
-        => "required|max:100|email|unique:users,email,$id",
-
-      'password'
-        => "min:10|max:60|confirmed|regex:/^(?=(?:.*[a-zA-z]{1,}))(?=(?:.*[0-9]){1,})(?=(?:.*[!@#$%&*]){1,})(.{10,})$/",
-
-      'password_confirmation'
-        => "min:10|max:60"
     ];
-
-    // if (Auth::user()->hasRole('ADMIN') && ((int)$id !== Auth::user()->id) && empty($input['roles']))
-    //   self::$rules['roles'] = "required";
-
-    if (!Auth::user()->hasRole('ADMIN') || ((int)$id === Auth::user()->id)) {
-
-      self::$rules['actual_password'] = "required|min:10|max:60|password_verify";
-
-      self::$messages['actual_password.password_verify'] = "O campo :attribute está incorreto.";
-    }
 
     $validator = Validator::make($input, self::$rules, self::$messages);
 

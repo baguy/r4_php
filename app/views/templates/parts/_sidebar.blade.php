@@ -17,7 +17,14 @@
     <!-- Sidebar User (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <i class="fas fa-user-circle fa-2x text-muted"></i>
+        @if(is_null(Auth::user()->avatar))
+          <i class="fas fa-user-circle fa-2x text-muted"></i>
+        @else
+          <img src="{{ asset('assets/_dist/img/avatar/'.Auth::user()->avatar) }}"
+               alt="{{ Auth::user()->name }}"
+               class="brand-image img-circle elevation-3"
+               style="opacity: .8">
+        @endif
       </div>
       <div class="info">
         <a href="{{ route('users.show', [ Auth::user()->id ]) }}" class="d-block ellipsis">{{ Auth::user()->name }}</a>
@@ -80,16 +87,7 @@
           </li>
 
         @endif
-
-        <li class="nav-item">
-          <a href="{{ route('comentarios.index') }}" class="nav-link">
-            <i class="nav-icon fas fa-heartbeat"></i>
-            <p>
-              {{ trans('menus.sidebar.item.coments') }}
-            </p>
-          </a>
-        </li>
-
+        
       </ul>
 
     </nav>

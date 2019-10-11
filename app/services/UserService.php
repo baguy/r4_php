@@ -32,11 +32,10 @@ class UserService extends BaseService {
                                 false => mb_strtoupper(Lang::get('users.filter.is_default_password.opt.changed'), 'UTF-8')
                               ]),
 
-      'secretarias'         => MainHelper::fixArray('secretaria(s)', [])
     ];
   }
 
-  public function store($input) {
+  public static function store($input) {
 
   	DB::beginTransaction();
 
@@ -44,15 +43,15 @@ class UserService extends BaseService {
 
       $user = new User($input);
 
-      $user->password = Hash::make(User::DEFAULT_PASSWORD);
+      $user->password = Hash::make($input['password']);
 
       $user->save();
 
-      $this->syncRoles($input, $user);
+			$user->roles()->sync($input['roles']);
 
       $throttle = new Throttle();
 
-			$throttle->is_default_password = 1;
+			$throttle->is_default_password = 0;
 
       $user->throttle()->save($throttle);
 
@@ -78,17 +77,13 @@ class UserService extends BaseService {
 
       $user->fill($input);
 
-			if(!isset($input['responsavel'])){
-				$user->responsavel = 0;
-			}
-
       if (!empty($input['password']))
 
         $user->password = Hash::make($input['password']);
 
       parent::hasChanges($user, array('password'));
 
-			if(isset($input['resetar'])){
+			if(isset($input['reset_senha'])){
 				$user->throttle->is_default_password = 1;
 				$user->throttle->update();
 
@@ -99,12 +94,6 @@ class UserService extends BaseService {
       $user->update();
 
       $this->syncRoles($input, $user);
-
-      // BEGIN - Secretarias
-
-      // $this->syncSecretarias($input, $user);
-
-      // END - Secretarias
 
       DB::commit();
 
@@ -303,14 +292,4 @@ class UserService extends BaseService {
       $user->roles()->sync($input['roles']);
   }
 
-  // BEGIN - Secretarias
-
-  private function syncSecretarias($input, $user) {
-
-    if (!empty($input['secretarias']))
-
-      $user->secretarias()->sync($input['secretarias']);
-  }
-
-  // END - Secretarias
 }

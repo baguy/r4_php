@@ -141,7 +141,7 @@ Event::subscribe('LoggerEventHandler');
 |
 */
 
-User::observe(new UserObserver);
+// User::observe(new UserObserver);
 
 /*
 |--------------------------------------------------------------------------

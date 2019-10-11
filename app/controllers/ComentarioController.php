@@ -8,7 +8,7 @@ class ComentarioController extends \BaseController {
 
 	protected $selects;
 
-	public function __construct(Comentario $comentario, MainService $service) {
+	public function __construct(Comentario $comentario, ComentarioService $service) {
 
 		parent::__construct($service);
 
@@ -16,11 +16,6 @@ class ComentarioController extends \BaseController {
 		$this->service = $service;
 
 		$this->selects = $this->service->selects();
-
-		$this->beforeFilter('role:SUPER', array('only' => array('redefinePassword')));
-		$this->beforeFilter('role:ADMIN', array('only' => array(
-			'create', 'store', 'destroy', 'restore', 'report', 'export', 'printAll'
-		)));
 
 	}
 
@@ -53,7 +48,22 @@ class ComentarioController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$input = Input::all();
+
+		try {
+
+			ComentarioService::store($input);
+
+			return Redirect::back()
+											->with('_status', Lang::get('application.msg.status.resource-created-successfully'));
+
+		} catch (Exception $e) {
+
+			Session::flash('_old_input', Input::all());
+
+			return Redirect::back()->with('_error', Lang::get('application.msg.error.something-went-wrong'));
+		}
+
 	}
 
 
@@ -89,7 +99,22 @@ class ComentarioController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+	    $input = Input::all();
+
+      try {
+
+        $this->service->update($input, $id);
+
+        return Redirect::back()
+                        ->with('_status', Lang::get('application.msg.status.resource-updated-successfully'));
+
+      } catch (Exception $e) {
+
+        Session::flash('_old_input', Input::all());
+
+        return Redirect::back()->with('_error', Lang::get('application.msg.error.something-went-wrong'));
+      }
+
 	}
 
 
@@ -101,7 +126,38 @@ class ComentarioController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+
+		$comment = $this->comentario->find($id);
+
+		try {
+
+			$comment->delete();
+
+			LoggingHelper::destroy($comment);
+
+			return Redirect::route('main.index')
+											->with('_status', Lang::get('application.msg.status.resource-deleted-successfully'));
+
+		} catch (Exception $e) {
+
+			return Redirect::back()->with('_error', Lang::get('application.msg.error.something-went-wrong'));
+		}
+	}
+
+	public function restore($id) {
+		$comment = $this->comentario->withTrashed()->find($id);
+
+		try {
+
+			$comment->restore();
+
+			return Redirect::route('main.index')
+											->with('_status', Lang::get('application.msg.status.resource-restored-successfully'));
+
+		} catch (Exception $e) {
+
+			return Redirect::back()->with('_error', Lang::get('application.msg.error.something-went-wrong'));
+		}
 	}
 
 

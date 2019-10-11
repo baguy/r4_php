@@ -20,17 +20,6 @@
 
   @define $authMinRoleId     = Auth::user()->minRole()->id
 
-    {{
-      link_to_route(
-        'users.avatar',
-        trans('application.btn.upload'),
-        Auth::user()->id,
-        array(
-          'class' => 'btn btn-info btn-sm'
-        )
-        )
-      }}
-
 
   <div class="row">
 
@@ -42,14 +31,37 @@
         <div class="card-body box-profile">
 
           <div class="text-center">
-            <img class="profile-user-img img-fluid img-circle"
-                 src="{{ asset('assets/_dist/img/avatar_128x128.png') }}"
-                 alt="{{ $user->name }}">
+
+            @if(is_null($user->avatar))
+              <img class="profile-user-img img-fluid img-circle"
+                   src="{{ asset('assets/_dist/img/avatar_128x128.png') }}"
+                   alt="{{ $user->name }}">
+            @else
+              <img class="profile-user-img img-fluid img-circle"
+                   style="height:128px; width:128px;"
+                   src="{{ asset('assets/_dist/img/avatar/'.$user->avatar) }}"
+                   alt="{{ $user->name }}">
+            @endif
+
           </div>
 
           <h3 class="profile-username text-center">{{ $user->name }}</h3>
 
           <p class="text-muted text-center">{{ $user->email }}</p>
+
+          <p class="text-muted text-center">
+            <label>{{ trans('users.page.title.avatar') }}</label>
+            {{
+              link_to_route(
+                'users.avatar',
+                trans('application.btn.upload'),
+                Auth::user()->id,
+                array(
+                  'class' => 'btn btn-primary btn-sm'
+                )
+                )
+              }}
+          </p>
 
           <ul class="list-group list-group-unbordered mb-3">
 
@@ -264,53 +276,6 @@
 
                 </p>
 
-                <hr>
-
-                <strong class="d-block"><i class="fas fa-list-ol fa-fw mr-1"></i> {{ trans('users.lbl.attempts') }}</strong>
-
-                <p class="text-muted">
-                  {{ trans('users.msg.attempts', ['attempts' => $user->throttle->attempts]) }}
-                </p>
-
-                <hr>
-
-                <strong><i class="fas fa-calendar-day fa-fw mr-1"></i> {{ trans('users.lbl.last-attempt') }}</strong>
-
-                <p class="text-muted mb-0">
-                  @if(strtotime($user->throttle->last_attempt_at) > 0)
-
-                    {{
-                      trans('users.msg.last-attempt', [
-                        'datetime' => FormatterHelper::dateTimeToPtBR($user->throttle->last_attempt_at)
-                      ])
-                    }}
-
-                  @else
-
-                    {{ trans('users.msg.no-last-attempt') }}
-
-                  @endif
-                </p>
-
-                <hr>
-
-                <strong><i class="fas fa-lock fa-fw mr-1"></i> {{ trans('users.ask.default-password-has-been-changed') }}</strong>
-
-                <p class="mb-0">
-                  @if($isDefaultPassword)
-
-                    <span class="badge badge-danger badge-pill text-uppercase">
-                      {{ trans('application.lbl.no') }}
-                    </span>
-
-                  @else
-
-                    <span class="badge badge-success badge-pill text-uppercase">
-                      {{ trans('application.lbl.yes') }}
-                    </span>
-
-                  @endif
-                </p>
 
               </div>
               <!-- /.Post -->
@@ -318,75 +283,6 @@
             </div>
             <!-- /.Tab Pane -->
 
-            <!-- Tab Pane -->
-            <div class="tab-pane" id="logs">
-
-              @if (count($logs) > 0)
-
-                <ul class="timeline timeline-inverse">
-
-                  @define $counter = 0
-
-                  @foreach ($logs as $key => $log)
-
-                    @if (($key + 1) < $logs->count())
-
-                      @if ($counter === 0)
-
-                      <!-- Timeline Time Label -->
-
-                      <li class="time-label">
-                        <span class="bg-secondary">
-                          {{ $log->created_at->format('d M. Y') }}
-                        </span>
-                      </li>
-
-                      <!-- /.Timeline Time Label -->
-
-                      @endif
-
-                      @define $actual = $log->created_at->format('d M. Y')
-                      @define $next   = $logs[($key + 1)]->created_at->format('d M. Y')
-
-                      @if ($actual === $next)
-
-                        @define $counter++
-
-                      @else
-
-                        @define $counter = 0
-
-                      @endif
-
-                    @endif
-
-                  @endforeach
-
-                </ul>
-
-              @else
-
-                <div class="alert alert-warning mb-0">{{ trans('application.msg.warn.no-records-found') }}</div>
-
-              @endif
-
-              @if($isAdmin && $user->loggers->count() > $take)
-                {{
-                  link_to_route(
-                    'logs.index',
-                    trans('application.btn.show-all'),
-                    array(
-                      'search' => explode('@', $user->email)[0]
-                    ),
-                    array(
-                      'class' => 'btn btn-primary btn-block btn-sm'
-                    )
-                  )
-                }}
-              @endif
-
-            </div>
-            <!-- /.Tab Pane -->
 
           </div>
           <!-- /.Tab Content -->

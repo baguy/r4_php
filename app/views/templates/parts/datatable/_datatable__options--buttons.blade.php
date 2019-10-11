@@ -1,4 +1,4 @@
-@if( $is_trashed && Auth::user()->hasRole('LAB') )
+@if( $is_trashed && Auth::user()->hasRole('ADMIN'))
 
   <a
     class="btn btn-warning {{ !$has_permission ? 'disabled' : '' }}"
@@ -8,7 +8,7 @@
     <i class="fas fa-recycle fa-fw"></i>
   </a>
 
-@elseif( Auth::user()->hasRole('LAB') )
+@elseif( Auth::user() )
 
   <a
     class="btn btn-danger"
@@ -20,7 +20,7 @@
 
 @endif
 
-@if( Auth::user()->hasRole('LAB') )
+@if( Auth::user() )
   <a
     href="{{ $route_edit }}"
     class="btn btn-info {{ ($is_trashed) ? 'disabled' : '' }}"

@@ -33,7 +33,7 @@
 
       <div class="form-group {{ ($errors->has('name')) ? 'has-error' : '' }}">
 
-        {{ Form::label('name', trans('users.lbl.nickname')) }}<span class="obrigatorio">*</span>
+        {{ Form::label('name', trans('users.lbl.name')) }}<span class="obrigatorio">*</span>
 
         <div class="input-group">
 
@@ -43,7 +43,7 @@
               Input::old('name'),
               array(
                 'class'            => ($errors->has('name')) ? 'form-control has-error__icon' : 'form-control',
-                'placeholder'      => trans('users.plh.nickname'),
+                'placeholder'      => trans('users.plh.name'),
                 'aria-describedby' => 'nameAddon'
               )
             )
@@ -67,7 +67,7 @@
 
         <div class="form-group">
 
-          {{ Form::label('password', trans('users.lbl.email')) }}<span class="obrigatorio">*</span>
+          {{ Form::label('email', trans('users.lbl.email')) }}<span class="obrigatorio">*</span>
 
           <div class="input-group {{ ($errors->has('email')) ? 'has-error' : '' }}">
 
@@ -193,5 +193,24 @@
   </div>
 
 </div>
+
+@stop
+
+@section('SCRIPTS')
+
+  <!-- JQuery Validation -->
+  <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+
+  <!-- JQuery Validation - Additional Methods -->
+  <script src="{{ asset('assets/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+
+  <!-- JQuery Validation - Localization pt_BR -->
+  <script src="{{ asset('assets/plugins/jquery-validation/localization/messages_pt_BR.min.js') }}"></script>
+
+  <!-- JQuery Form Validator -->
+  <script src="{{ asset('assets/js/jQuery.form.validator.js') }}"></script>
+
+  <!-- $_Users -->
+  <script src="{{ asset('assets/js/$_users.js') }}"></script>
 
 @stop
